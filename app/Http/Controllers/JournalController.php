@@ -17,12 +17,12 @@ class JournalController extends Controller
 
         $todayNameIndo = Carbon::now()->isoFormat('dddd'); // Contoh: "Rabu"
         $todayNameEng  = Carbon::now()->format('l');        // Contoh: "Wednesday"
-        $todayDate     = Carbon::now()->toDateString();     
+        $todayDate     = Carbon::now()->toDateString();
 
         // 1. Cari profil Guru dari User yang sedang login secara presisi
         $teacher = Teacher::where('user_id', $user->id)
-            ->orWhere('email', $user->email)
-            ->orWhere('name', $user->name)
+            // ->orWhere('email', $user->email)
+            // ->orWhere('name', $user->name)
             ->when($user->teacher_code, function ($q) use ($user) {
                 return $q->orWhere('teacher_code', $user->teacher_code);
             })
@@ -161,7 +161,7 @@ class JournalController extends Controller
         ]);
 
         $user = auth()->user();
-        
+
         $teacher = Teacher::where('user_id', $user->id)
             ->orWhere('email', $user->email)
             ->orWhere('name', $user->name)
