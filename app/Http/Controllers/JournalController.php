@@ -21,8 +21,8 @@ class JournalController extends Controller
 
         // 1. Cari profil Guru dari User yang sedang login secara presisi
         $teacher = Teacher::where('user_id', $user->id)
-            // ->orWhere('email', $user->email)
-            // ->orWhere('name', $user->name)
+            ->orWhere('email', $user->email)
+            ->orWhere('name', $user->name)
             ->when($user->teacher_code, function ($q) use ($user) {
                 return $q->orWhere('teacher_code', $user->teacher_code);
             })
